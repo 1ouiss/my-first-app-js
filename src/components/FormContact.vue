@@ -3,10 +3,16 @@
         <input type="text" placeholder="Le titre du film" v-model="credentials.title">
         <input type="text" placeholder="Durée du film" v-model="credentials.duration">
         <input type="text" placeholder="Notation du film" v-model="credentials.notation">
+        <div>
+            <label for="public-on">Public On</label>
+            <input id="public-on" type="radio" v-model="credentials.public" value="true">
+            <label for="public-off">Public Off</label>
+            <input id="public-off" type="radio" v-model="credentials.public" value="false">
+        </div>
         <input type="submit" value="Envoyer">
     </form>
 
-    <FilmList :filmList="filmList"/>
+    <FilmList :filmList="filmList" v-on:handlePublic="handlePublic"/>
 </template>
 
 
@@ -22,7 +28,8 @@ export default {
             credentials: {
                 title: '',
                 duration: '',
-                notation: ''
+                notation: '',
+                public: false
             },
             filmList: []
         }
@@ -36,8 +43,10 @@ export default {
                 notation: ''
             }
             console.log(this.filmList);
+        },
+        handlePublic(film){
+            film.public = !film.public
         }
     }
-
 }
 </script>
